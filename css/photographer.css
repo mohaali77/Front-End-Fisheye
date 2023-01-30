@@ -9,12 +9,12 @@
 }
 
 .contact_button {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     color: white;
     padding: 11px;
-    width: 170px;
-    height: 70px;
+    width: 150px;
+    height: 50px;
     border: none;
     background-color: #901C1C;
     border-radius: 5px;
@@ -73,4 +73,126 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+main .photograph-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+}
+
+.left-section {
+    margin-left: 30px;
+}
+
+
+main h1 {
+    margin: 0px;
+    color: #D3573C;
+    font-size: 50px;
+}
+
+.city {
+    color: #901C1C;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+.tagline {
+    color: black;
+    font-size: 18px;
+    margin-top: 18px;
+}
+
+main img {
+
+    height: 170px;
+
+}
+
+#trier {
+    margin: 0px 100px;
+    margin-top: 40px;
+}
+
+#label_tri {
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+#tri {
+    height: 45px;
+    width: 130px;
+    background: #901C1C;
+    color: #FFFF;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+#post_section {
+    margin: 0px 100px;
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+}
+
+.post img {
+    border-radius: 5px;
+    display: flex;
+    width: 100%;
+    object-fit: cover;
+    height: 250px;
+}
+
+.title_like {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: #901C1C;
+}
+
+.title_like .like {
+    font-weight: bold;
+
+}
+
+.title_like .title {
+    font-size: 20px;
+
+}
+
+.photograph-header img {
+    border-radius: 100%;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+#container_band_price_like {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    position: sticky;
+    bottom: 0;
+}
+
+#band_price_like {
+    background: #DB8876;
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    height: 40px;
+    align-items: center;
+    border-radius: 5px 5px 0px 0px;
+    font-weight: bold;
 }
