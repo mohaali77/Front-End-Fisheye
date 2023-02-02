@@ -58,8 +58,8 @@
 
     <div id="container_band_price_like">
       <div id="band_price_like">
-        <div id="band_like">297 081 <i class="fa-solid fa-heart"></i></div>
-        <div id="band_price">300€ / jour</div>
+        <div id="band_like"></div>
+        <div id="band_price"></div>
       </div>
     </div>
 
@@ -72,8 +72,22 @@
       </header>
       <form>
         <div>
-          <label>Prénom</label>
-          <input />
+
+          <label for="last">Prénom</label><br>
+          <input type="text" id="first" name="first" /><br>
+          <div id="errorFirst"></div>
+
+          <label for="last">Nom</label><br>
+          <input type="text" id="last" name="last" /><br>
+          <div id="errorLast"></div>
+
+          <label for="email">Email</label><br>
+          <input type="email" id="email" name="email" /><br>
+          <div id="errorEmail"></div>
+
+          <label for="msg">Votre message</label><br>
+          <input type="msg" id="msg" name="msg" /><br>
+          <div id="errorMsg"></div>
         </div>
         <button class="contact_button">Envoyer</button>
       </form>

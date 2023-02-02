@@ -98,11 +98,15 @@ function mediasFactory(data) {
         heartLike.classList.add('fa-solid');
         heartLike.classList.add('fa-heart');
 
-        divLike.appendChild(heartLike);
+        const bandPrice = document.getElementById('band_price')
+        bandPrice.innerText = price + '€ / jour'
+
+        divLike.appendChild(heartLike)
+        a.appendChild(imgMedia);
         title_like.appendChild(divTitle);
         title_like.appendChild(divLike);
-        a.appendChild(imgMedia);
-        a.appendChild(title_like);
+
+        post.appendChild(title_like);
         post.appendChild(a);
 
         return (post);
@@ -110,86 +114,3 @@ function mediasFactory(data) {
     }
     return { getMediaCardDOM }
 }
-
-
-
-
-
-
-
-
-
-/*function photographerFactory(data) {
-    const { name, portrait, city, country, tagline, price, id } = data;
-
-    const picture = `./assets/photographers/${portrait}`;
-
-    function getUserCardDOM() {
-
-        const article = document.createElement('article');
-        const a = document.createElement('a')
-        a.setAttribute("href", "./photographer.html?id=" + id)
-        const img = document.createElement('img');
-        img.setAttribute("src", picture)
-        img.setAttribute("alt", "Photo de profil de " + name)
-        const h2 = document.createElement('h2');
-        h2.textContent = name;
-
-        //ajout de l'élement affichant la ville et le pays
-        const city_country = document.createElement('div')
-        city_country.classList.add('city_country');
-        city_country.textContent = city + ', ' + country;
-
-        //ajout de l'élement affichant la phrase d'accroche
-        const tagLine = document.createElement('div');
-        tagLine.classList.add('tagline');
-        tagLine.textContent = tagline;
-
-        //ajout de l'élement affichant le prix
-        const textPrice = document.createElement('div');
-        textPrice.classList.add('price');
-        textPrice.textContent = price + '€/jour'
-
-
-        /*a.appendChild(img);
-        article.appendChild(a);
-        article.appendChild(h2);
-        article.appendChild(city_country);
-        article.appendChild(tagLine);
-        article.appendChild(textPrice);
-
-        const div = document.createElement('div');
-
-        const h1 = document.createElement('h1')
-
-        const city_tagline = document.createElement('div');
-        city_tagline.classList.add('city_tagline')
-
-        const city = document.createElement('div');
-        city.classList.add('city')
-
-        const tagline = document.createElement('div');
-        tagline.classList.add('tagline')
-
-
-        div.appendChild(h1);
-        div.appendChild(city_tagline);
-
-        return (article);
-
-
-    }
-    return { name, picture, getUserCardDOM }
-}
-
-
-
-function mediaFactory(data) {
-    const { date, image, likes, photographerId, title, price, id } = data;
-
-    function getMediaCardDOM() {
-
-        
-    }
-    return { getMediaCardDOM }
-}*/

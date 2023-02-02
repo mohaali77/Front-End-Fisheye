@@ -44,6 +44,22 @@ fetch('./data/photographers.json')
                 const mediasCardDOM = mediasModel.getMediaCardDOM();
                 postSection.appendChild(mediasCardDOM);
             });
+
+            const bandLikes = document.getElementById('band_like');
+            const heartLike = document.createElement('i');
+            heartLike.classList.add('fa-solid');
+            heartLike.classList.add('fa-heart');
+
+            let total = 0
+
+            medias.forEach((media) => {
+                total += media.likes
+            });
+
+            bandLikes.innerText = total + ' '
+            bandLikes.appendChild(heartLike)
+            console.log(total);
+
         }
 
 
