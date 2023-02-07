@@ -40,21 +40,7 @@
       </select>
     </div>
 
-    <div id="post_section">
-
-      <!-- <div class="post">
-
-        <img src="./assets/photographers/EllieRoseWilkens.jpg" alt=""> 
-
-        <div class='title_like'>
-          <div class='title'> Arc-en-cie</div>
-          <div class='like'>11 <i class="fa-solid fa-heart"></i></div>
-        </div>
-      -->
-
-    </div>
-
-    </div>
+    <div id="post_section"></div>
 
     <div id="container_band_price_like">
       <div id="band_price_like">
@@ -62,39 +48,47 @@
         <div id="band_price"></div>
       </div>
     </div>
-
   </main>
-  <div id="contact_modal">
+
+  <section id="lightbox">
+    <i class="fa-sharp fa-solid fa-angle-left"></i>
+    <i class="fa-sharp fa-solid fa-angle-right"></i>
+    <i id='closeBtn' class="fa-sharp fa-solid fa-xmark"></i>
+    <div id="title">aaaaaaaaaa</div>
+  </section>
+
+  <section id="contact_modal">
     <div class="modal">
       <header>
-        <h2>Contactez-moi</h2>
+        <h2 role="button">Contactez-moi</h2>
         <img src="assets/icons/close.svg" onclick="closeModal()" />
       </header>
       <form>
         <div>
 
-          <label for="last">Prénom</label><br>
+          <label for="last">Prénom</label>
           <input type="text" id="first" name="first" /><br>
           <div id="errorFirst"></div>
 
-          <label for="last">Nom</label><br>
+          <label for="last">Nom</label>
           <input type="text" id="last" name="last" /><br>
           <div id="errorLast"></div>
 
-          <label for="email">Email</label><br>
+          <label for="email">Email</label>
           <input type="email" id="email" name="email" /><br>
           <div id="errorEmail"></div>
 
-          <label for="msg">Votre message</label><br>
-          <input type="msg" id="msg" name="msg" /><br>
+          <label for="msg">Votre message</label>
+          <textarea id="msg" name="msg"> </textarea><br>
           <div id="errorMsg"></div>
         </div>
-        <button class="contact_button">Envoyer</button>
+        <button role="button" class="contact_button">Envoyer</button>
       </form>
     </div>
-  </div>
+  </section>
   <script src="/scripts/pages/photographer.js"></script>
   <script src="/scripts/utils/contactForm.js"></script>
+  <script src="/scripts/utils/lightBox.js"></script>
   <script src="scripts/factories/photographer.js"></script>
 </body>
 

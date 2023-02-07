@@ -55,6 +55,9 @@ function photographerFactory(data) {
         imgSolo.setAttribute("src", picture);
         imgSolo.setAttribute("alt", "Photo de profil de " + name);
 
+        const modalTitle = document.querySelector('h2')
+        modalTitle.innerText = 'Contactez-moi ' + name
+
         const headerSection = document.querySelector(".photograph-header");
         headerSection.appendChild(imgSolo);
 
@@ -66,22 +69,36 @@ function photographerFactory(data) {
 }
 
 function mediasFactory(data) {
-    const { title, image, date, likes, photographerId, price, id } = data;
+    const { title, image, date, likes, photographerId, price, id, video } = data;
 
     const picture = `./assets/photographers/medias/${image}`;
+    const video_ = `./assets/photographers/medias/${video}`;
 
     function getMediaCardDOM() {
 
         const post = document.createElement('div');
         post.classList.add('post');
 
-        const a = document.createElement('a');
-        a.setAttribute("href", "./photographer.html?id=" + id);
+        //const a = document.createElement('a');
+        //a.setAttribute("href", "./photographer.html?id=" + id);
+        //a.setAttribute('onclick', 'openLightBox()')
         console.log(id);
 
-        const imgMedia = document.createElement('img');
-        imgMedia.setAttribute("src", picture);
-        imgMedia.setAttribute("alt", title);
+
+        if (video) {
+            const vidMedia = document.createElement('video');
+            vidMedia.setAttribute("src", video_);
+            vidMedia.setAttribute("alt", title);
+            // vidMedia.setAttribute("controls", '')
+            post.appendChild(vidMedia)
+        }
+
+        if (image) {
+            const imgMedia = document.createElement('img');
+            imgMedia.setAttribute("src", picture);
+            imgMedia.setAttribute("alt", title);
+            post.appendChild(imgMedia);
+        }
 
         const title_like = document.createElement('div');
         title_like.classList.add('title_like');
@@ -101,13 +118,12 @@ function mediasFactory(data) {
         const bandPrice = document.getElementById('band_price')
         bandPrice.innerText = price + '€ / jour'
 
-        divLike.appendChild(heartLike)
-        a.appendChild(imgMedia);
+        divLike.appendChild(heartLike);
         title_like.appendChild(divTitle);
         title_like.appendChild(divLike);
 
         post.appendChild(title_like);
-        post.appendChild(a);
+        //post.appendChild(a);
 
         return (post);
 
