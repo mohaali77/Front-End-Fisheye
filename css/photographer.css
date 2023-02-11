@@ -281,3 +281,7 @@ main img {
     right: 245px;
     cursor: pointer;
 }
+
+.red {
+    color: red;
+}

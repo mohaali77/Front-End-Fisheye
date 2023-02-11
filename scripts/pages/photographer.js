@@ -32,12 +32,17 @@ fetch('./data/photographers.json')
         async function displayDataMedia(medias) {
 
             const postSection = document.querySelector("#post_section");
+            const mediasModel = mediasFactory(medias);
 
             medias.forEach((media) => {
-                const mediasModel = mediasFactory(media);
-                const mediasCardDOM = mediasModel.getMediaCardDOM();
+                const mediasCardDOM = mediasModel.getMediaCardDOM(media);
                 postSection.appendChild(mediasCardDOM);
+
             });
+
+            const sortMedia = mediasModel.getSortMedia();
+            const mediasLike = mediasModel.getLikes();
+            const lightBox = mediasModel.getLightBox();
 
         }
 

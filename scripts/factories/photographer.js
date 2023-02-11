@@ -67,16 +67,19 @@ function photographerFactory(data) {
     return { getUserCardDOM, getProfilUserDOM }
 }
 
-function mediasFactory(data) {
-    const { title, image, date, likes, photographerId, price, id, video } = data;
+function mediasFactory(medias) {
 
-    const picture = `./assets/photographers/medias/${image}`;
-    const video_ = `./assets/photographers/medias/${video}`;
+    function getMediaCardDOM(media) {
 
-    function getMediaCardDOM() {
+        let { title, image, date, likes, photographerId, price, id, video } = media;
+
+        const picture = `./assets/photographers/medias/${image}`;
+        const video_ = `./assets/photographers/medias/${video}`;
 
         const post = document.createElement('div');
         post.classList.add('post');
+        post.setAttribute('data-id', id)
+        post.setAttribute('date', date)
 
         if (video) {
             const vidMedia = document.createElement('video');
@@ -117,38 +120,346 @@ function mediasFactory(data) {
 
         post.appendChild(title_like);
 
-        //bande like prix 
-        fetch('./data/photographers.json')
-            .then(response => response.json())
-            .then(data => {
-
-                let arrayMedias = [];
-                arrayMedias = data.media.filter((element) => element.photographerId == paramId);
-                const bandLikes = document.getElementById('band_like');
-                const bandHeartLike = document.createElement('i');
-                bandHeartLike.classList.add('fa-solid');
-                bandHeartLike.classList.add('fa-heart');
-
-                let total = 0
-
-                arrayMedias.forEach((media) => {
-                    total += media.likes
-                });
-
-                bandLikes.innerText = total + ' '
-                bandLikes.appendChild(bandHeartLike)
-
-            });
-
 
         return (post);
 
     }
 
-    return { getMediaCardDOM }
+    function getLikes() {
+        //lors du clic sur le bouton like, une unité supplémentaire doit pouvoir s'incrémenté uniquement à l'élément du DOM
+        //et uniquement au média du tableau. 
+
+        //on ajoute un attribut isLiked pour chaque objet, la valeur sera false de base 
+        //lors d'un like, on le rendra true pour qu'il puisse attribuer la classe red 
+        medias.forEach(media => {
+            media.isLiked = false
+        });
+
+        const allHeart = document.querySelectorAll('.fa-solid.fa-heart');
+
+
+        allHeart.forEach(heart => {
+            heart.addEventListener('click', (event) => {
+                const post = event.target.closest('.post');
+                const postId = Number(post.dataset.id);
+                const media = medias.find(media => media.id === postId);
+                const divLikes = event.target.closest('.like')
+                if (media) {
+                    media.isLiked = true
+                    media.likes += event.target.classList.contains('red') ? -1 : 1;
+                    event.target.classList.toggle('red');
+                    divLikes.innerHTML = media.likes + ' '
+                    divLikes.appendChild(event.target)
+                    getTotalLike();
+                }
+            });
+
+        });
+
+
+        function getTotalLike() {
+
+            const bandLikes = document.getElementById('band_like');
+            const bandHeartLike = document.createElement('i');
+            bandHeartLike.classList.add('fa-solid');
+            bandHeartLike.classList.add('fa-heart');
+
+            let total = 0
+
+            medias.forEach((media) => {
+                total += media.likes
+            });
+
+            bandLikes.innerText = total + ' '
+            bandLikes.appendChild(bandHeartLike)
+        }
+
+        getTotalLike()
+    }
+
+    function getSortMedia() {
+
+        const selectElement = document.querySelector('#trier #tri')
+
+        selectElement.addEventListener('change', function () {
+            if (this.value === 'popularity') {
+                medias.sort((a, b) => b.likes - a.likes);
+                const postSection = document.querySelector("#post_section");
+                postSection.innerHTML = ''
+                //console.log('tableau après tri like : ');
+                //console.log(medias);
+                createElementSort();
+                getLightBox()
+                getLikes()
+            }
+
+            else if (this.value === 'title') {
+                medias.sort((a, b) => a.title.localeCompare(b.title));
+                const postSection = document.querySelector("#post_section");
+                postSection.innerHTML = ''
+                //console.log('tableau après tri titre : ');
+                //console.log(medias);
+                createElementSort();
+                getLightBox()
+                getLikes()
+            }
+        });
+
+
+        function createElementSort() {
+
+            const postSection = document.querySelector("#post_section");
+            postSection.innerHTML = ''
+
+            medias.forEach(media => {
+
+                const picture = `./assets/photographers/medias/${media.image}`;
+                const video_ = `./assets/photographers/medias/${media.video}`;
+                const post = document.createElement('div');
+
+                post.classList.add('post');
+                post.setAttribute('data-id', media.id)
+                post.setAttribute('date', media.date)
+
+                if (media.video) {
+                    const vidMedia = document.createElement('video');
+                    vidMedia.setAttribute("src", video_);
+                    vidMedia.setAttribute("alt", media.title);
+                    // vidMedia.setAttribute("controls", '')
+                    post.appendChild(vidMedia)
+                }
+
+                if (media.image) {
+                    const imgMedia = document.createElement('img');
+                    imgMedia.setAttribute("src", picture);
+                    imgMedia.setAttribute("alt", media.title);
+                    post.appendChild(imgMedia);
+                }
+
+                const title_like = document.createElement('div');
+                title_like.classList.add('title_like');
+
+                const divTitle = document.createElement('div');
+                divTitle.classList.add('title');
+                divTitle.textContent = media.title;
+
+                const divLike = document.createElement('div');
+                divLike.classList.add('like');
+                divLike.textContent = media.likes + ' ';
+
+                const heartLike = document.createElement('i');
+                heartLike.classList.add('fa-solid');
+                heartLike.classList.add('fa-heart');
+                //si l'attribut isLiked est trouvé sur un des objets du tableau, la classe red est ajouté
+                //pour pouvoir laisser le coeur rouge
+                if (media.isLiked) {
+                    heartLike.classList.add('red');
+                }
+
+                const bandPrice = document.getElementById('band_price')
+                bandPrice.innerText = media.price + '€ / jour'
+
+                divLike.appendChild(heartLike);
+                title_like.appendChild(divTitle);
+                title_like.appendChild(divLike);
+
+                post.appendChild(title_like);
+                postSection.appendChild(post)
+            });
+        }
+
+    }
+
+    function getLightBox() {
+
+        function showLightbox() {
+
+            const images = document.querySelectorAll('#post_section .post img');
+            const videos = document.querySelectorAll('#post_section .post video');
+            const lightBox = document.getElementById('lightbox');
+            const titleLightbox = document.querySelector('#lightbox #title')
+            const i = document.querySelector('.fa-angle-left')
+
+            for (let image of images) {
+                image.addEventListener('click', (e) => {
+
+                    const imageLightbox = document.createElement('img');
+                    lightBox.appendChild(imageLightbox)
+                    lightBox.style.display = 'flex';
+                    imageLightbox.setAttribute("src", image.src)
+                    imageLightbox.setAttribute("alt", image.alt)
+                    lightBox.insertBefore(imageLightbox, i.nextSibling)
+                    const title = image.parentElement.querySelector('.title_like .title').textContent;
+                    titleLightbox.textContent = title;
+                })
+            }
+
+            for (let video of videos) {
+                video.addEventListener('click', (e) => {
+
+                    const videoLightbox = document.createElement('video');
+                    lightBox.appendChild(videoLightbox)
+                    lightBox.style.display = 'flex';
+                    videoLightbox.setAttribute("src", video.src)
+                    videoLightbox.setAttribute("alt", video.alt)
+                    videoLightbox.setAttribute("controls", '')
+                    lightBox.insertBefore(videoLightbox, i.nextSibling)
+                    const title = video.parentElement.querySelector('.title_like .title').textContent;
+                    titleLightbox.textContent = title;
+                })
+            }
+        }
+
+
+        function closeLightbox() {
+
+            const lightBox = document.getElementById('lightbox');
+            const closeBtn = document.querySelector('#closeBtn')
+
+            function close() {
+                lightBox.style.display = 'none'
+                const imageLightbox = document.querySelector('#lightbox img')
+                const videoLightbox = document.querySelector('#lightbox video')
+                if (imageLightbox) {
+
+                    lightBox.removeChild(imageLightbox);
+
+                } else if (videoLightbox) {
+
+                    lightBox.removeChild(videoLightbox)
+
+                }
+            }
+
+            closeBtn.addEventListener('click', (e) => {
+                close();
+            })
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    close();
+                }
+            });
+        }
+
+
+        function changeImage() {
+
+            const lightBox = document.getElementById('lightbox');
+            const leftArrow = document.querySelector('.fa-angle-left');
+            const rightArrow = document.querySelector('.fa-angle-right');
+            const titleLightbox = document.querySelector('#lightbox #title')
+            const images = document.querySelectorAll('#post_section .post img');
+            const videos = document.querySelectorAll('#post_section .post video');
+
+            // Combine all images and videos into one array
+            let allMedia = [...images, ...videos];
+            let selectedIndex = 0;
+
+            allMedia.forEach((media, index) => {
+                media.addEventListener('click', (e) => {
+                    selectedIndex = index;
+                    console.log(`Image with index ${selectedIndex} was clicked`);
+
+                });
+            });
+
+            //fonction permettant de changer de média vers la gauche
+            function changeLeft() {
+                selectedIndex--;
+                if (selectedIndex < 0) {
+                    selectedIndex = allMedia.length - 1;
+                }
+                const img = lightBox.querySelector("img");
+                const video = lightBox.querySelector("video");
+
+                if (img) {
+                    lightBox.removeChild(img);
+                } else if (video) {
+                    lightBox.removeChild(video);
+                }
+            }
+
+            //fonction permettant de changer de média vers la droite
+            function changeRight() {
+                selectedIndex++;
+                if (selectedIndex >= allMedia.length) {
+                    selectedIndex = 0;
+                }
+
+                const img = lightBox.querySelector("img");
+                const video = lightBox.querySelector("video");
+
+                if (img) {
+                    lightBox.removeChild(img);
+                } else if (video) {
+                    lightBox.removeChild(video);
+                }
+            }
+
+            // Lors du clic sur la flèche gauche, on appelle la fonction permettant de retourner à l'image précédente
+            leftArrow.addEventListener('click', (e) => {
+                changeLeft();
+                updateLightbox();
+            });
+
+            // Lorsque l'utilisateur appuie sur la flèche gauche du clavier, on appelle la fonction permettant de retourner à l'image précédente
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowLeft") {
+                    changeLeft();
+                    updateLightbox();
+                }
+            });
+
+            // l'utilisateur appuie sur la flèche droite du clavier, on appelle la fonction permettant de retourner à l'image suivante
+            rightArrow.addEventListener('click', (e) => {
+                changeRight();
+                updateLightbox();
+            });
+
+            // Lors du clic sur la flèche droite, on appelle la fonction permettant de retourner à l'image précédente
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowRight") {
+                    changeRight();
+                    updateLightbox();
+                }
+            });
+
+
+            function updateLightbox() {
+                const currentMedia = allMedia[selectedIndex];
+                lightBox.style.display = 'flex';
+                if (currentMedia.tagName === 'IMG') {
+                    // If current media is an image
+                    const imageLightbox = document.createElement('img');
+                    lightBox.appendChild(imageLightbox);
+                    imageLightbox.setAttribute("src", currentMedia.src);
+                    imageLightbox.setAttribute("alt", currentMedia.alt);
+                    lightBox.insertBefore(imageLightbox, leftArrow.nextSibling);
+                } else if (currentMedia.tagName === 'VIDEO') {
+                    // If current media is a video
+                    const videoLightbox = document.createElement('video');
+                    lightBox.appendChild(videoLightbox);
+                    videoLightbox.setAttribute("src", currentMedia.src);
+                    videoLightbox.setAttribute("alt", currentMedia.alt);
+                    videoLightbox.setAttribute("controls", '');
+                    lightBox.insertBefore(videoLightbox, leftArrow.nextSibling);
+                }
+                const title = currentMedia.parentElement.querySelector('.title_like .title').textContent;
+                titleLightbox.textContent = title;
+            }
+        }
+
+        showLightbox(); closeLightbox(); changeImage()
+    }
+
+    return { getMediaCardDOM, getLikes, getSortMedia, getLightBox }
 
 
 }
+
+
+
 
 
 
