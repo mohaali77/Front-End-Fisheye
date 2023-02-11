@@ -5,7 +5,6 @@ function photographerFactory(data) {
 
     function getUserCardDOM() {
 
-
         const article = document.createElement('article');
         const a = document.createElement('a');
         a.setAttribute("href", "./photographer.html?id=" + id);
@@ -79,12 +78,6 @@ function mediasFactory(data) {
         const post = document.createElement('div');
         post.classList.add('post');
 
-        //const a = document.createElement('a');
-        //a.setAttribute("href", "./photographer.html?id=" + id);
-        //a.setAttribute('onclick', 'openLightBox()')
-        console.log(id);
-
-
         if (video) {
             const vidMedia = document.createElement('video');
             vidMedia.setAttribute("src", video_);
@@ -123,10 +116,40 @@ function mediasFactory(data) {
         title_like.appendChild(divLike);
 
         post.appendChild(title_like);
-        //post.appendChild(a);
+
+        //bande like prix 
+        fetch('./data/photographers.json')
+            .then(response => response.json())
+            .then(data => {
+
+                let arrayMedias = [];
+                arrayMedias = data.media.filter((element) => element.photographerId == paramId);
+                const bandLikes = document.getElementById('band_like');
+                const bandHeartLike = document.createElement('i');
+                bandHeartLike.classList.add('fa-solid');
+                bandHeartLike.classList.add('fa-heart');
+
+                let total = 0
+
+                arrayMedias.forEach((media) => {
+                    total += media.likes
+                });
+
+                bandLikes.innerText = total + ' '
+                bandLikes.appendChild(bandHeartLike)
+
+            });
+
 
         return (post);
 
     }
+
     return { getMediaCardDOM }
+
+
 }
+
+
+
+

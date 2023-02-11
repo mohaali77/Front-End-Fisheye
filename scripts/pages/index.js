@@ -1,14 +1,12 @@
 fetch('./data/photographers.json')
     .then(response => response.json())
     .then(data => {
+        //cette fonction va nous permettre de récupérer les données des photographes
         async function getPhotographers() {
-            // Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet, 
-            // mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
 
-
+            //on récupère le tableau des photographes.
             let photographers = data.photographers
             console.log(photographers);
-
 
             // et bien retourner le tableau photographers seulement une fois récupéré
             return ({
@@ -17,11 +15,14 @@ fetch('./data/photographers.json')
         }
 
         async function displayData(photographers) {
+            //on récupère l'élément du DOM où notre contenu sera intégrer
             const photographersSection = document.querySelector(".photographer_section");
 
+            //pour chaque photographe, 
             photographers.forEach((photographer) => {
                 const photographerModel = photographerFactory(photographer);
                 const userCardDOM = photographerModel.getUserCardDOM();
+                //ici on va intégrer les userCard à l'intérieur de la section des photographes
                 photographersSection.appendChild(userCardDOM);
             });
         };

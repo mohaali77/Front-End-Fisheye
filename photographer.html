@@ -34,8 +34,8 @@
     <div id='trier'>
       <label id='label_tri' for="tri">Trier par </label>
       <select name="tri" id="tri">
+        <option value="none">------------ </option>
         <option value="popularity">Popularité </option>
-        <option value="date">Date </option>
         <option value="title">Titre</option>
       </select>
     </div>
@@ -54,7 +54,7 @@
     <i class="fa-sharp fa-solid fa-angle-left"></i>
     <i class="fa-sharp fa-solid fa-angle-right"></i>
     <i id='closeBtn' class="fa-sharp fa-solid fa-xmark"></i>
-    <div id="title">aaaaaaaaaa</div>
+    <div id="title"></div>
   </section>
 
   <section id="contact_modal">
@@ -89,7 +89,9 @@
   <script src="/scripts/pages/photographer.js"></script>
   <script src="/scripts/utils/contactForm.js"></script>
   <script src="/scripts/utils/lightBox.js"></script>
+  <script src="/scripts/utils/tri.js"></script>
   <script src="scripts/factories/photographer.js"></script>
+
 </body>
 
 </html>
