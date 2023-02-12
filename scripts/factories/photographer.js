@@ -352,9 +352,21 @@ function mediasFactory(medias) {
             const images = document.querySelectorAll('#post_section .post img');
             const videos = document.querySelectorAll('#post_section .post video');
 
+
             // Combine all images and videos into one array
             let allMedia = [...images, ...videos];
+
             let selectedIndex = 0;
+
+            //pour chaque médias du tableau allMedia  :
+            allMedia.forEach(media => {
+                //on va chercher le parent post
+                const post = media.parentNode
+                //on va récupérer l'id dans l'attribut data-id du post
+                const postId = Number(post.dataset.id);
+                //et on va ajouter l'attribut id à l'image/vidéo
+                media.setAttribute("id", postId)
+            });
 
             allMedia.forEach((media, index) => {
                 media.addEventListener('click', (e) => {
@@ -363,6 +375,26 @@ function mediasFactory(medias) {
 
                 });
             });
+
+            //permet de créer un nouveau tableau qui va ranger le tableau des images de
+            //la même facon que le tableau des medias
+            let sortedArrayImg = [];
+
+            for (let i = 0; i < medias.length; i++) {
+                for (let j = 0; j < allMedia.length; j++) {
+                    if (medias[i].id === parseInt(allMedia[j].id)) {
+                        sortedArrayImg[i] = allMedia[j];
+                        break;
+                    }
+                }
+            }
+            //le tableau allMedia devient le tableu sortedArrayImg
+            allMedia = sortedArrayImg;
+
+
+            console.log(medias);
+            console.log(allMedia);
+
 
             //fonction permettant de changer de média vers la gauche
             function changeLeft() {
