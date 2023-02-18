@@ -44,6 +44,7 @@ fetch('./data/photographers.json')
             const mediasLike = mediasModel.getLikes();
             const lightBox = mediasModel.getLightBox();
 
+
         }
 
 
@@ -54,7 +55,7 @@ fetch('./data/photographers.json')
             const photographerModel = photographerFactory(onePhotographer);
             const profilUserDOM = photographerModel.getProfilUserDOM();
 
-        };
+        }
 
         async function init() {
             // Récupère les datas des photographes
@@ -64,7 +65,7 @@ fetch('./data/photographers.json')
             displayData(photographers);
             displayDataMedia(medias)
 
-        };
+        }
 
         init();
 

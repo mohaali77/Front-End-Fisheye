@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
   <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -12,31 +12,31 @@
 </head>
 
 <body>
-  <header>
+  <header aria-label="banniere" role="banner">
     <a href="index.html">
-      <img src="assets/images/logo.png" alt="Fisheye Home page" class="logo" />
+      <img src="assets/images/logo.png" alt="Logo du site internet Fisheye" class="logo" />
     </a>
   </header>
-  <main id="main">
+
+  <main id="main" role="main" aria-label="Information du photographe">
     <div class="photograph-header">
       <div class="left-section">
         <h1></h1>
         <div class="city_tagline">
-          <div class="city"></div>
+          <div role="region" class="city"></div>
           <div class="tagline"></div>
         </div>
       </div>
-      <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      <!---<img src="./assets/photographers/account.png" alt=""> --->
-
+      <button aria-label="Ouvrir le formulaire de contact" class="contact_button"
+        onclick="displayModal()">Contactez-moi</button>
     </div>
 
     <div id='trier'>
       <label id='label_tri' for="tri">Trier par </label>
-      <select name="tri" id="tri">
+      <select aria-label="Sélectionnez un critère de tri" name="tri" id="tri">
         <option value="none">------------ </option>
         <option value="popularity">Popularité </option>
-        <option value="title">Titre</option>
+        <option style="margin: 5px;" value="title">Titre</option>
       </select>
     </div>
 
@@ -61,26 +61,27 @@
     <div class="modal">
       <header>
         <h2 role="button">Contactez-moi</h2>
-        <img src="assets/icons/close.svg" onclick="closeModal()" />
+        <img src="assets/icons/close.svg" onclick="closeModal()"
+          alt="Bouton représentant une croix permettant de fermer la modale de contact" />
       </header>
       <form>
         <div>
 
-          <label for="last">Prénom</label>
-          <input type="text" id="first" name="first" /><br>
-          <div id="errorFirst"></div>
-
-          <label for="last">Nom</label>
-          <input type="text" id="last" name="last" /><br>
-          <div id="errorLast"></div>
-
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" /><br>
-          <div id="errorEmail"></div>
-
-          <label for="msg">Votre message</label>
-          <textarea id="msg" name="msg"> </textarea><br>
-          <div id="errorMsg"></div>
+          <label for="first" aria-label="Votre prénom">Prénom</label>
+          <input type="name" id="first" name="first" />
+          <div class='error' id="errorFirst"></div>
+          <br>
+          <label for="last" aria-label="Votre nom">Nom</label>
+          <input type="name" id="last" name="last" />
+          <div class='error' id="errorLast"></div>
+          <br>
+          <label for="email" aria-label="Votre email">Email</label>
+          <input type="email" id="email" name="email" />
+          <div class='error' id="errorEmail"></div>
+          <br>
+          <label for="msg" aria-label="Votre message">Votre message</label>
+          <textarea id="msg" name="msg"> </textarea>
+          <div class='error' id="errorMsg"></div>
         </div>
         <button role="button" class="contact_button">Envoyer</button>
       </form>
@@ -88,7 +89,6 @@
   </section>
   <script src="/scripts/pages/photographer.js"></script>
   <script src="/scripts/utils/contactForm.js"></script>
-  <script src="/scripts/utils/lightBox.js"></script>
   <script src="scripts/factories/photographer.js"></script>
 
 </body>

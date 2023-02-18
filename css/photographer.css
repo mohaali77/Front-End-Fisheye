@@ -185,6 +185,12 @@ main img {
 
 .title_like .like {
     font-weight: bold;
+    font-size: 20px;
+
+}
+
+.title_like .like i {
+    cursor: pointer;
 
 }
 
@@ -284,4 +290,11 @@ main img {
 
 .red {
     color: red;
+}
+
+.error {
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #312E2E;
 }

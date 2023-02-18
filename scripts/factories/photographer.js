@@ -6,6 +6,7 @@ function photographerFactory(data) {
     function getUserCardDOM() {
 
         const article = document.createElement('article');
+        article.setAttribute("role", "article");
         const a = document.createElement('a');
         a.setAttribute("href", "./photographer.html?id=" + id);
         const img = document.createElement('img');
@@ -71,35 +72,37 @@ function mediasFactory(medias) {
 
     function getMediaCardDOM(media) {
 
-        let { title, image, date, likes, photographerId, price, id, video } = media;
+        let { title, image, date, likes, price, id, video } = media;
 
         const picture = `./assets/photographers/medias/${image}`;
         const video_ = `./assets/photographers/medias/${video}`;
 
-        const post = document.createElement('div');
+        const post = document.createElement('article');
         post.classList.add('post');
         post.setAttribute('data-id', id)
         post.setAttribute('date', date)
+        post.setAttribute('role', 'article')
 
         if (video) {
             const vidMedia = document.createElement('video');
             vidMedia.setAttribute("src", video_);
-            vidMedia.setAttribute("alt", title);
-            // vidMedia.setAttribute("controls", '')
+            const vidSourceMedia = document.createElement('source')
+            vidSourceMedia.setAttribute('src', video_)
+            vidMedia.appendChild(vidSourceMedia)
             post.appendChild(vidMedia)
         }
 
         if (image) {
             const imgMedia = document.createElement('img');
             imgMedia.setAttribute("src", picture);
-            imgMedia.setAttribute("alt", title);
+            imgMedia.setAttribute("alt", 'Image miniature représentant la photo ' + title);
             post.appendChild(imgMedia);
         }
 
         const title_like = document.createElement('div');
         title_like.classList.add('title_like');
 
-        const divTitle = document.createElement('div');
+        const divTitle = document.createElement('h2');
         divTitle.classList.add('title');
         divTitle.textContent = title;
 
@@ -120,7 +123,6 @@ function mediasFactory(medias) {
 
         post.appendChild(title_like);
 
-
         return (post);
 
     }
@@ -131,9 +133,7 @@ function mediasFactory(medias) {
 
         //on ajoute un attribut isLiked pour chaque objet, la valeur sera false de base 
         //lors d'un like, on le rendra true pour qu'il puisse attribuer la classe red 
-        medias.forEach(media => {
-            media.isLiked = false
-        });
+
 
         const allHeart = document.querySelectorAll('.fa-solid.fa-heart');
 
@@ -145,8 +145,10 @@ function mediasFactory(medias) {
                 const media = medias.find(media => media.id === postId);
                 const divLikes = event.target.closest('.like')
                 if (media) {
-                    media.isLiked = true
+
                     media.likes += event.target.classList.contains('red') ? -1 : 1;
+                    media.isLiked = event.target.classList.contains('red') ? false : true;
+                    console.log(media.isLiked);
                     event.target.classList.toggle('red');
                     divLikes.innerHTML = media.likes + ' '
                     divLikes.appendChild(event.target)
@@ -215,31 +217,30 @@ function mediasFactory(medias) {
 
                 const picture = `./assets/photographers/medias/${media.image}`;
                 const video_ = `./assets/photographers/medias/${media.video}`;
-                const post = document.createElement('div');
+                const post = document.createElement('article');
 
                 post.classList.add('post');
                 post.setAttribute('data-id', media.id)
                 post.setAttribute('date', media.date)
+                post.setAttribute('role', 'article')
 
                 if (media.video) {
                     const vidMedia = document.createElement('video');
                     vidMedia.setAttribute("src", video_);
-                    vidMedia.setAttribute("alt", media.title);
-                    // vidMedia.setAttribute("controls", '')
                     post.appendChild(vidMedia)
                 }
 
                 if (media.image) {
                     const imgMedia = document.createElement('img');
                     imgMedia.setAttribute("src", picture);
-                    imgMedia.setAttribute("alt", media.title);
+                    imgMedia.setAttribute("alt", 'Image miniature représentant la photo ' + media.title);
                     post.appendChild(imgMedia);
                 }
 
                 const title_like = document.createElement('div');
                 title_like.classList.add('title_like');
 
-                const divTitle = document.createElement('div');
+                const divTitle = document.createElement('h2');
                 divTitle.classList.add('title');
                 divTitle.textContent = media.title;
 
@@ -281,7 +282,7 @@ function mediasFactory(medias) {
             const i = document.querySelector('.fa-angle-left')
 
             for (let image of images) {
-                image.addEventListener('click', (e) => {
+                image.addEventListener('click', () => {
 
                     const imageLightbox = document.createElement('img');
                     lightBox.appendChild(imageLightbox)
@@ -295,7 +296,7 @@ function mediasFactory(medias) {
             }
 
             for (let video of videos) {
-                video.addEventListener('click', (e) => {
+                video.addEventListener('click', () => {
 
                     const videoLightbox = document.createElement('video');
                     lightBox.appendChild(videoLightbox)
@@ -331,7 +332,7 @@ function mediasFactory(medias) {
                 }
             }
 
-            closeBtn.addEventListener('click', (e) => {
+            closeBtn.addEventListener('click', () => {
                 close();
             })
 
@@ -369,7 +370,7 @@ function mediasFactory(medias) {
             });
 
             allMedia.forEach((media, index) => {
-                media.addEventListener('click', (e) => {
+                media.addEventListener('click', () => {
                     selectedIndex = index;
                     console.log(`Image with index ${selectedIndex} was clicked`);
 
@@ -430,7 +431,7 @@ function mediasFactory(medias) {
             }
 
             // Lors du clic sur la flèche gauche, on appelle la fonction permettant de retourner à l'image précédente
-            leftArrow.addEventListener('click', (e) => {
+            leftArrow.addEventListener('click', () => {
                 changeLeft();
                 updateLightbox();
             });
@@ -444,7 +445,7 @@ function mediasFactory(medias) {
             });
 
             // l'utilisateur appuie sur la flèche droite du clavier, on appelle la fonction permettant de retourner à l'image suivante
-            rightArrow.addEventListener('click', (e) => {
+            rightArrow.addEventListener('click', () => {
                 changeRight();
                 updateLightbox();
             });
@@ -489,6 +490,8 @@ function mediasFactory(medias) {
 
 
 }
+
+
 
 
 
