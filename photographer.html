@@ -14,7 +14,8 @@
 <body>
   <header aria-label="banniere" role="banner">
     <a href="index.html">
-      <img src="assets/images/logo.png" alt="Logo du site internet Fisheye" class="logo" />
+      <img src="assets/images/logo.png" aria-label='au clic permet de revenir à la page précédente'
+        alt="Logo du site internet Fisheye" class="logo" />
     </a>
   </header>
 
@@ -34,9 +35,9 @@
     <div id='trier'>
       <label id='label_tri' for="tri">Trier par </label>
       <select aria-label="Sélectionnez un critère de tri" name="tri" id="tri">
-        <option value="none">------------ </option>
+        <option value="date">Date </option>
         <option value="popularity">Popularité </option>
-        <option style="margin: 5px;" value="title">Titre</option>
+        <option value="title">Titre</option>
       </select>
     </div>
 
@@ -60,30 +61,30 @@
   <section id="contact_modal">
     <div class="modal">
       <header>
-        <h2 role="button">Contactez-moi</h2>
+        <h2 aria-label='affiche une modale pour contacter le photographe' role="button">Contactez-moi</h2>
         <img src="assets/icons/close.svg" onclick="closeModal()"
           alt="Bouton représentant une croix permettant de fermer la modale de contact" />
       </header>
       <form>
         <div>
 
-          <label for="first" aria-label="Votre prénom">Prénom</label>
-          <input type="name" id="first" name="first" />
+          <label for="first" aria-label="Insérez votre prénom">Prénom</label>
+          <input type="name" id="first" name="first" tabindex="0" />
           <div class='error' id="errorFirst"></div>
           <br>
-          <label for="last" aria-label="Votre nom">Nom</label>
-          <input type="name" id="last" name="last" />
+          <label for="last" aria-label="Insérez votre nom">Nom</label>
+          <input type="name" id="last" name="last" tabindex="0" />
           <div class='error' id="errorLast"></div>
           <br>
-          <label for="email" aria-label="Votre email">Email</label>
-          <input type="email" id="email" name="email" />
+          <label for="email" aria-label="Insérez votre email">Email</label>
+          <input type="email" id="email" name="email" tabindex="0" />
           <div class='error' id="errorEmail"></div>
           <br>
-          <label for="msg" aria-label="Votre message">Votre message</label>
-          <textarea id="msg" name="msg"> </textarea>
+          <label for="msg" aria-label="Insérez votre message">Votre message</label>
+          <textarea id="msg" name="msg" tabindex="0"> </textarea>
           <div class='error' id="errorMsg"></div>
         </div>
-        <button role="button" class="contact_button">Envoyer</button>
+        <button role="button" aria-label="envoyez votre message" class="contact_button">Envoyer</button>
       </form>
     </div>
   </section>

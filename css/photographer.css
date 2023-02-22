@@ -173,6 +173,7 @@ main img {
     width: 100%;
     object-fit: cover;
     height: 250px;
+    cursor: pointer;
 }
 
 .title_like {
