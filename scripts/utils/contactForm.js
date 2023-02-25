@@ -124,7 +124,7 @@ function isFormValid() {
 
     ///////// MESSAGE ///////////
 
-    let regexMsg = new RegExp(/^.{0,300}$/)
+    let regexMsg = new RegExp(/^.{10,300}$/)
 
     if (!inputMsg.value || regexMsg.test(inputMsg.value) == false) {
         errorMsg.innerText = 'Veuillez entrer 300 caractères maximum pour le message.'
@@ -132,6 +132,8 @@ function isFormValid() {
     } else {
         errorMsg.innerText = ''
     }
+
+    return isFormValid
 
 }
 

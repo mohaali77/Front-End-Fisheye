@@ -9,9 +9,11 @@ function photographerFactory(data) {
         const article = document.createElement('article');
         article.setAttribute("role", "article");
         article.setAttribute("tabindex", "0");
+        article.setAttribute("aria-label", "Article sur le photographe " + name);
 
         const a = document.createElement('a');
         a.setAttribute("href", "./photographer.html?id=" + id);
+        a.setAttribute("aria-label", "Lien qui va mener vers la page du photographe " + name);
 
         const img = document.createElement('img');
         img.setAttribute("src", picture);
@@ -19,21 +21,28 @@ function photographerFactory(data) {
 
         const h2 = document.createElement('h2');
         h2.textContent = name;
+        h2.setAttribute("aria-label", "Nom du photographe");
+
 
         //ajout de l'élement affichant la ville et le pays
         const city_country = document.createElement('div');
         city_country.classList.add('city_country');
         city_country.textContent = city + ', ' + country;
+        city_country.setAttribute("aria-label", "Ville et pays du photographe");
+
 
         //ajout de l'élement affichant la phrase d'accroche
         const tagLine = document.createElement('div');
         tagLine.classList.add('tagline');
         tagLine.textContent = tagline;
+        tagLine.setAttribute("aria-label", "Phrase d'accroche du photographe");
+
 
         //ajout de l'élement affichant le prix
         const textPrice = document.createElement('div');
         textPrice.classList.add('price');
         textPrice.textContent = price + '€/jour';
+        textPrice.setAttribute("aria-label", "Prix du photographe par jour");
 
         a.appendChild(img);
         article.appendChild(a);
@@ -283,13 +292,15 @@ function mediasFactory(medias) {
 
             medias.forEach(media => {
 
-                const picture = `./assets/photographers/medias/${media.image}`;
-                const video_ = `./assets/photographers/medias/${media.video}`;
+                let { title, image, date, likes, price, id, video, isLiked } = media;
+
+                const picture = `./assets/photographers/medias/${image}`;
+                const video_ = `./assets/photographers/medias/${video}`;
                 const post = document.createElement('article');
 
                 post.classList.add('post');
-                post.setAttribute('data-id', media.id)
-                post.setAttribute('date', media.date)
+                post.setAttribute('data-id', id)
+                post.setAttribute('date', date)
                 post.setAttribute('role', 'article')
                 post.setAttribute('tabindex', '0');
 
@@ -303,7 +314,7 @@ function mediasFactory(medias) {
                 if (media.image) {
                     const imgMedia = document.createElement('img');
                     imgMedia.setAttribute("src", picture);
-                    imgMedia.setAttribute("alt", 'Image miniature représentant la photo ' + media.title);
+                    imgMedia.setAttribute("alt", 'Image miniature représentant la photo ' + title);
                     post.appendChild(imgMedia);
                 }
 
@@ -312,11 +323,11 @@ function mediasFactory(medias) {
 
                 const divTitle = document.createElement('h2');
                 divTitle.classList.add('title');
-                divTitle.textContent = media.title;
+                divTitle.textContent = title;
 
                 const divLike = document.createElement('div');
                 divLike.classList.add('like');
-                divLike.textContent = media.likes + ' ';
+                divLike.textContent = likes + ' ';
 
                 const heartLike = document.createElement('i');
                 heartLike.classList.add('fa-solid');
@@ -325,12 +336,12 @@ function mediasFactory(medias) {
                 heartLike.setAttribute('aria-label', 'bouton qui permet de mettre un like au post')
                 //si l'attribut isLiked renvoie true sur un des objets du tableau, la classe red est ajouté
                 //pour pouvoir laisser le coeur rouge
-                if (media.isLiked) {
+                if (isLiked) {
                     heartLike.classList.add('red');
                 }
 
                 const bandPrice = document.getElementById('band_price')
-                bandPrice.innerText = media.price + '€ / jour'
+                bandPrice.innerText = price + '€ / jour'
 
                 divLike.appendChild(heartLike);
                 title_like.appendChild(divTitle);
