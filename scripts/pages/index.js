@@ -7,7 +7,6 @@ fetch('./data/photographers.json')
         async function getPhotographers() {
             //on récupère les données des photographes.
             let photographers = data.photographers
-            console.log(photographers);
             // on retourne le tableau photographers seulement une fois récupéré
             return ({
                 photographers: [...photographers]

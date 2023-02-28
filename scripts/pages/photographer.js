@@ -12,7 +12,6 @@ fetch('./data/photographers.json')
         async function getPhotographers() {
             //on récupère les données des photographes.
             let photographers = data.photographers
-            console.log(photographers);
 
             // on retourne le tableau des photographes seulement une fois récupéré
             return ({
@@ -25,7 +24,7 @@ fetch('./data/photographers.json')
 
             //on récupère un tableau de média qui correspondra à l'id de l'utilisateur sélectionné
             let medias = data.media.filter((element) => element.photographerId == paramId)
-            console.log(medias);
+
 
             // on retourne le tableau des medias seulement une fois récupéré
             return ({
@@ -37,7 +36,6 @@ fetch('./data/photographers.json')
         async function displayData(photographers) {
             //on récupère le photographe qui possède un id similaire à celui de l'URL
             const onePhotographer = photographers.find((element) => element.id == paramId)
-            console.log(onePhotographer);
             //on appelle la fonction photographerFactory en passant en argument les données du photographe trouvé
             const photographerModel = photographerFactory(onePhotographer);
             const profilUserDOM = photographerModel.getProfilUserDOM();

@@ -174,7 +174,6 @@ function mediasFactory(medias) {
                     media.likes += event.target.classList.contains('red') ? -1 : 1;
                     //si la class red existe ou non, un attribut isLiked est ajouté et sera soit true soit false
                     media.isLiked = event.target.classList.contains('red') ? false : true;
-                    console.log(media.isLiked);
                     //on ajoute, ou supprime la class red si elle est présente ou non
                     event.target.classList.toggle('red');
                     //on change l'affichage du nombre de like dans le post
@@ -201,7 +200,6 @@ function mediasFactory(medias) {
                     if (media) {
                         media.likes += event.target.classList.contains('red') ? -1 : 1;
                         media.isLiked = event.target.classList.contains('red') ? false : true;
-                        console.log(media.isLiked);
                         event.target.classList.toggle('red');
                         divLikes.innerHTML = media.likes + ' '
                         divLikes.appendChild(event.target)
@@ -550,8 +548,6 @@ function mediasFactory(medias) {
             allMedia.forEach((media, index) => {
                 media.addEventListener('click', () => {
                     selectedIndex = index;
-                    console.log(`Image with index ${selectedIndex} was clicked`);
-
                 });
             });
 
@@ -622,7 +618,6 @@ function mediasFactory(medias) {
             //fonction qui va mettre à jour la lightbox
             function updateLightbox() {
                 const currentMedia = allMedia[selectedIndex];
-                console.log(currentMedia);
                 lightBox.style.display = 'flex';
                 if (currentMedia.tagName === 'IMG') {
                     // If current media is an image
@@ -654,7 +649,6 @@ function mediasFactory(medias) {
 
 
 }
-
 
 
 
