@@ -239,7 +239,7 @@ function mediasFactory(medias) {
         getTotalLike()
     }
 
-    //fonction qui va permettre de faire un tri des médias selon sa popularité ou  son titre
+    //fonction qui va permettre de faire un tri des médias selon sa popularité, sa date ou son titre
     function getSortMedia() {
 
         //on récupère la balise selection du tri

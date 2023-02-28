@@ -33,6 +33,17 @@ fetch('./data/photographers.json')
             })
         }
 
+        // Fonction qui affichera les données du photographes et de ses médias dans le DOM
+        async function displayData(photographers) {
+            //on récupère le photographe qui possède un id similaire à celui de l'URL
+            const onePhotographer = photographers.find((element) => element.id == paramId)
+            console.log(onePhotographer);
+            //on appelle la fonction photographerFactory en passant en argument les données du photographe trouvé
+            const photographerModel = photographerFactory(onePhotographer);
+            const profilUserDOM = photographerModel.getProfilUserDOM();
+
+        }
+
         // Fonction qui affichera les données des médias dans le DOM
         async function displayDataMedia(medias) {
 
@@ -60,17 +71,6 @@ fetch('./data/photographers.json')
 
         }
 
-        // Fonction qui affichera les données du photographes et de ses médias dans le DOM
-        async function displayData(photographers) {
-            //on récupère le photographe qui possède un id similaire à celui de l'URL
-            const onePhotographer = photographers.find((element) => element.id == paramId)
-            console.log(onePhotographer);
-            //on appelle la fonction photographerFactory en passant en argument les données du photographe trouvé
-            const photographerModel = photographerFactory(onePhotographer);
-            const profilUserDOM = photographerModel.getProfilUserDOM();
-
-        }
-
         async function init() {
             // Récupère les datas des photographes
             const { photographers } = await getPhotographers();
@@ -86,3 +86,6 @@ fetch('./data/photographers.json')
         init();
 
     })
+    .catch((e) =>
+        console.log("il y a une erreur :" + e)
+    );

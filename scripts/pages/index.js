@@ -40,3 +40,6 @@ fetch('./data/photographers.json')
         init();
 
     })
+    .catch((e) =>
+        console.log("il y a une erreur :" + e)
+    );
